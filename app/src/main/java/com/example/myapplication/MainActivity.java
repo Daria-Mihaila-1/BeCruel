@@ -23,14 +23,7 @@ public class MainActivity extends AppCompatActivity {
         yesBtn = findViewById(R.id.buttonYes);
 
         // on below line we are adding click listener for our button
-        yesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                showCopDialog();
-
-            }
-        });
+        yesBtn.setOnClickListener(v -> showCopDialog());
     }
 
     private void showCopDialog() {
@@ -39,12 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button copBtn = dialog.findViewById(R.id.copBtn);
         Button noCopBtn = dialog.findViewById(R.id.nocopBtn);
-        noCopBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //intrat la login
-                dialog.dismiss();
-            }
+        noCopBtn.setOnClickListener(view -> {
+            //intrat la login
+            dialog.dismiss();
         });
         dialog.show();
 
