@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,13 +26,28 @@ public class MainActivity extends AppCompatActivity {
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // on below line we are finishing activity.
-                MainActivity.this.finish();
 
-                // on below line we are exiting our activity
-                System.exit(0);
+                showCopDialog();
+
             }
         });
+    }
+
+    private void showCopDialog() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.cop_dialogbox);
+
+        Button copBtn = dialog.findViewById(R.id.copBtn);
+        Button noCopBtn = dialog.findViewById(R.id.nocopBtn);
+        noCopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //intrat la login
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
 }
