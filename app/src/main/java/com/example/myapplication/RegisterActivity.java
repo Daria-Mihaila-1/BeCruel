@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.register_button);
         emailInput = findViewById(R.id.editTextTextEmailAddress);
         usernameInput = findViewById(R.id.editTextTextPersonName2);
+        passwordInput = findViewById(R.id.editTextTextPassword);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
