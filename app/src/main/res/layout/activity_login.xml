@@ -49,7 +49,8 @@
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        android:autofillHints="aaa" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -63,7 +64,8 @@
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/register_textView"
+        android:autofillHints="aaa" />
 
     <TextView
         android:id="@+id/register_textView"
