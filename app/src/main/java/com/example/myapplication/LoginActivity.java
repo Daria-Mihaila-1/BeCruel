@@ -6,17 +6,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView usernameInput;
     private TextView passwordInput;
     ProgressDialog pd;
+    DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private Button loginButton;
 
@@ -38,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
             //todo redirect to profile or some shit like that
             //startActivity(new Intent(getApplicationContext(), Dashboard.class));
         }
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         //start the login
         goToRegisterBtn = findViewById(R.id.goToRegister_button);
         pd = new ProgressDialog(this);

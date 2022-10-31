@@ -50,7 +50,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        android:autofillHints="aaa" />
+ />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
