@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "510120522176",
+    "project_id": "becruel",
+    "storage_bucket": "becruel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510120522176:android:bda90cac956ded84429825",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510120522176-unbfpadcjtjp7c1pskh1htf4b8ibdjjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhLtpcVJ-WGoSPRkSTc_L7mexGSl-epbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510120522176-unbfpadcjtjp7c1pskh1htf4b8ibdjjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
