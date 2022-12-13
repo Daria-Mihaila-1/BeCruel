@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -28,11 +29,13 @@ public class FeedActivity extends AppCompatActivity {
 
         //NAVBAR INCA NEFUNCTIONAL
         navigationView = findViewById(R.id.navbar);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
-            }
+        navigationView.setNavigationItemSelectedListener(item -> {
+            //todo ViewProfile class
+            Intent intent = new Intent(FeedActivity.this, ViewProfile.class);
+            finish();
+            startActivity(intent);
+
+            return false;
         });
 
         post_recyclerView = findViewById(R.id.post_recyclerView);
