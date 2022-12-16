@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                         else {
+                            pd.dismiss();
                             Log.w(TAG, "singInWithEmailAndPassword:failure", task.getException());
                             ;}
                     }
