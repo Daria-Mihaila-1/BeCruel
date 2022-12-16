@@ -33,10 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() !=null){
-            finish();
-            //todo redirect to feed
-        }
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         registerButton = findViewById(R.id.register_button);
         emailInput = findViewById(R.id.editTextTextEmailAddress);

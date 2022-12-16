@@ -106,13 +106,6 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             pd.dismiss();
                             finish();
-                            SharedPreferences sharedpreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putInt("loggedIn", 1);
-                            editor.apply();
-                            String currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                            editor.putString("uid", currentUser);
-                            editor.apply();
                             startActivity(new Intent(getApplicationContext(), FeedActivity.class));
 
                         }
