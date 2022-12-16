@@ -18,21 +18,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try{
-            SharedPreferences sharedpreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-            int i = sharedpreferences.getInt("loggedIn", 0);
-            if(i > 0){
-                Intent loginIntent = new Intent(MainActivity.this, FeedActivity.class);
-                startActivity(loginIntent);
-            }
-        }
-        catch (Exception e){
-            SharedPreferences sharedpreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt("loggedIn", 0);
-            editor.apply();
-        }
-
         setContentView(R.layout.activity_main);
 
         // on below line we are initializing variables with ids.
