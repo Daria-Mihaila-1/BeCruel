@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private Button goToRegisterBtn;
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private Button loginButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,9 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-
-            Intent feedIntent = new Intent(LoginActivity.this, FeedActivity.class);
-
-            startActivity(new Intent(getApplicationContext(), FeedActivity.class));
+//finish();
+            //todo redirect to profile or some shit like that
+            //startActivity(new Intent(getApplicationContext(), Dashboard.class));
         }
 
         //start the login
@@ -53,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 
                 userLogin();
 
@@ -92,11 +97,17 @@ public class LoginActivity extends AppCompatActivity {
                         System.out.println("can't get in");
                         System.out.println(email +  " " + password);
                         if(task.isSuccessful()){
-                            System.out.println("got in");
-                            Intent feedIntent = new Intent(LoginActivity.this, FeedActivity.class);
-                            startActivity(feedIntent);
-
                             pd.dismiss();
+                            finish();
+                            SharedPreferences sharedpreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putInt("loggedIn", 1);
+                            editor.apply();
+                            String currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+                            editor.putString("uid", currentUser);
+                            editor.apply();
+                            startActivity(new Intent(getApplicationContext(), FeedActivity.class));
+
                         }
                         else {
                             Log.w(TAG, "singInWithEmailAndPassword:failure", task.getException());

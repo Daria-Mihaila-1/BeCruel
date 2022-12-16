@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,8 @@ public class FeedActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         //NAVBAR INCA NEFUNCTIONAL
-        
+
+
         profileIV = findViewById(R.id.profileIV);
         logoutIV = findViewById(R.id.logoutIV);
         profileIV.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +51,18 @@ public class FeedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 logout();
-            }
-        });
+            }});
+
+//        navigationView = findViewById(R.id.navbar);
+//        navigationView.setNavigationItemSelectedListener(item -> {
+            //todo ViewProfile class
+//            Intent intent = new Intent(FeedActivity.this, ViewProfile.class);
+//            finish();
+//            startActivity(intent);
+
+//            return false;
+
+//        });
         post_recyclerView = findViewById(R.id.post_recyclerView);
 
         posts = new ArrayList<>();

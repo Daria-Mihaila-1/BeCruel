@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivProfile"
@@ -29,55 +28,57 @@
             android:id="@+id/ivUsername"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/ivProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text = "@string/username"
-            android:textSize="16sp"
             android:layout_margin="10dp"
-            />
+            android:text="@string/username"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivProfile"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/ivTimeStamp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/ivProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivUsername"
-            android:text = "@string/timestamp"
+            android:layout_marginStart="10dp"
+            android:text="@string/timestamp"
             android:textSize="10sp"
-            android:layout_marginLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivProfile"
+            app:layout_constraintTop_toBottomOf="@+id/ivUsername"
 
             />
 
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ImageView
         android:id="@+id/ivPost"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:src="@drawable/batman"
+        android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@+id/clTop"/>
+        android:src="@drawable/batman"
+        app:layout_constraintTop_toBottomOf="@+id/clTop"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageButton
         android:id="@+id/ivReact"
-        app:layout_constraintTop_toBottomOf="@+id/ivPost"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:minHeight="48dp"
         android:src="@drawable/ic_baseline_add_reaction_24"
-        />
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPost" />
+
     <ImageButton
         android:id="@+id/ivComment"
-        app:layout_constraintTop_toBottomOf="@+id/ivPost"
-        app:layout_constraintStart_toEndOf="@+id/ivReact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:minHeight="48dp"
         android:src="@drawable/ic_baseline_mode_comment_24"
-        />
+
+        app:layout_constraintStart_toEndOf="@+id/ivReact"
+        app:layout_constraintTop_toBottomOf="@+id/ivPost" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
