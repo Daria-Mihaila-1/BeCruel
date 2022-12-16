@@ -33,6 +33,17 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Button loginButton;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (firebaseAuth.getCurrentUser() != null) {
+            finish();
+            //todo redirect to profile or some shit like that
+            startActivity(new Intent(getApplicationContext(), FeedActivity.class));
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.editTextTextPassword);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser() != null) {
-//finish();
-            //todo redirect to profile or some shit like that
-            //startActivity(new Intent(getApplicationContext(), Dashboard.class));
-        }
+
 
         //start the login
         pd = new ProgressDialog(this);
