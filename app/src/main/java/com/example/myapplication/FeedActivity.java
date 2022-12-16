@@ -6,35 +6,63 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class FeedActivity extends AppCompatActivity {
     private RecyclerView post_recyclerView;
-
-    private NavigationView navigationView;
+    private ImageView profileIV;
+    private ImageView logoutIV;
 
     private ArrayList<Post> posts;
+
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         //NAVBAR INCA NEFUNCTIONAL
-        navigationView = findViewById(R.id.navbar);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+
+        profileIV = findViewById(R.id.profileIV);
+        logoutIV = findViewById(R.id.logoutIV);
+        profileIV.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
+            public void onClick(View v) {
+                //get profile user name from this page
+                // go to profile activity
             }
         });
+        
+        logoutIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }});
 
+//        navigationView = findViewById(R.id.navbar);
+//        navigationView.setNavigationItemSelectedListener(item -> {
+            //todo ViewProfile class
+//            Intent intent = new Intent(FeedActivity.this, ViewProfile.class);
+//            finish();
+//            startActivity(intent);
+
+//            return false;
+
+//        });
         post_recyclerView = findViewById(R.id.post_recyclerView);
 
         posts = new ArrayList<>();
@@ -50,5 +78,10 @@ public class FeedActivity extends AppCompatActivity {
         post_recyclerView.setAdapter(postRecyclerAdapter);
         post_recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    private void logout() {
+        firebaseAuth.signOut();
+        finish();
     }
 }

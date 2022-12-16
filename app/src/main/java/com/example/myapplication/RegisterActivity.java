@@ -33,10 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() !=null){
-            finish();
-            //todo redirect to feed
-        }
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         registerButton = findViewById(R.id.register_button);
         emailInput = findViewById(R.id.editTextTextEmailAddress);
@@ -80,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if(task.isSuccessful()){
+                            //TODO : insert into users
+                            System.out.println(email + " " + password);
                             Toast.makeText(RegisterActivity.this,"Reg Success",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                         }
