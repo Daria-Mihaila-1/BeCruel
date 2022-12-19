@@ -80,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //TODO : insert into users
                             System.out.println(email + " " + password);
                             Toast.makeText(RegisterActivity.this,"Reg Success",Toast.LENGTH_SHORT).show();
+                            finish();
                             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                         }
                         else{

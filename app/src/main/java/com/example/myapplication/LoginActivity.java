@@ -9,11 +9,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,8 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private Button goToRegisterBtn;
@@ -39,7 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser() != null) {
             finish();
             //todo redirect to profile or some shit like that
-            startActivity(new Intent(getApplicationContext(), FeedActivity.class));
+            Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
+            friendsListIntent.putExtra("email", firebaseAuth.getCurrentUser().getEmail());
+            startActivity(friendsListIntent);
         }
 
     }
@@ -63,8 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 
                 userLogin();
 
@@ -96,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         pd.setMessage("wait");
         pd.show();
-
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -106,8 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             pd.dismiss();
                             finish();
-                            startActivity(new Intent(getApplicationContext(), FeedActivity.class));
-
+                            Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
+                            friendsListIntent.putExtra("email", email);
+                            startActivity(friendsListIntent);
                         }
                         else {
                             pd.dismiss();
