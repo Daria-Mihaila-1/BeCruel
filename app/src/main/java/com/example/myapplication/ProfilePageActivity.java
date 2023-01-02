@@ -8,17 +8,17 @@ import android.widget.TextView;
 
 public class ProfilePageActivity extends AppCompatActivity {
 
-    private TextView usernameTextView;
+    private TextView emailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-        usernameTextView = findViewById(R.id.usernameTextView);
+        emailTextView = findViewById(R.id.emailTextView);
 
 
         Intent intent = getIntent();
-        String username =intent.getStringExtra("username");
-        usernameTextView.setText(username);
+        String username =intent.getStringExtra("email");
+        emailTextView.setText(username);
     }
 }

@@ -30,18 +30,26 @@ public class FriendsListActivity extends AppCompatActivity {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView logoutIV;
+    private ImageView profileIV;
     private ListView friendslistView;
-    private ArrayList<User> friends = new ArrayList<>();
+
     private DocumentReference docRef ;
     private static ArrayList<User> users = new ArrayList<>();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private UserArrayAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
+
+        Intent intentFromLogin = getIntent();
+        String emailFromLogin =intentFromLogin.getStringExtra("email");
+
         friendslistView = findViewById(R.id.friendsListView);
         logoutIV = findViewById(R.id.logoutIV);
+        profileIV = findViewById(R.id.profileIV);
 
         logoutIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,10 +57,16 @@ public class FriendsListActivity extends AppCompatActivity {
                 logout();
             }});
 
+        profileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent  = new Intent(getApplicationContext(), ProfilePageActivity.class);
+                profileIntent.putExtra("email", emailFromLogin);
+                startActivity(profileIntent);
+            }});
 
 
-        Intent intentFromLogin = getIntent();
-        String emailFromLogin =intentFromLogin.getStringExtra("email");
+
         docRef = db.collection("Users").document(emailFromLogin);
 
         getFriends();

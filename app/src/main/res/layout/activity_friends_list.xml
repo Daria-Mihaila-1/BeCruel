@@ -23,6 +23,26 @@
 
         >
         <ImageView
+            android:id="@+id/profileIV"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/person_outline"
+            app:tint="@color/text_purple">
+            >
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="@android:integer/config_mediumAnimTime"
+            >
+
+        </TextView>
+
+        <ImageView
             android:id="@+id/logoutIV"
             android:layout_width="64dp"
             android:layout_height="wrap_content"

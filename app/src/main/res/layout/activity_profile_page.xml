@@ -7,7 +7,7 @@
     tools:context=".ProfilePageActivity">
 
     <TextView
-        android:id="@+id/usernameTextView"
+        android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="this is my profile"

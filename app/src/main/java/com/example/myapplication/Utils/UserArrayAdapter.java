@@ -53,7 +53,7 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
         // for our item of list view.
         listitemView.setOnClickListener(view -> {
             Intent profilePageIntent = new Intent(c, ProfilePageActivity.class);
-            profilePageIntent.putExtra("username", user.getUsername());
+            profilePageIntent.putExtra("email", user.getEmail());
             c.startActivity(profilePageIntent);
         });
         return listitemView;
