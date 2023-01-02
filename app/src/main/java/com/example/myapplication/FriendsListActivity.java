@@ -35,7 +35,7 @@ public class FriendsListActivity extends AppCompatActivity {
     private DocumentReference docRef ;
     private static ArrayList<User> users = new ArrayList<>();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
+    private UserArrayAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +54,12 @@ public class FriendsListActivity extends AppCompatActivity {
         Intent intentFromLogin = getIntent();
         String emailFromLogin =intentFromLogin.getStringExtra("email");
         docRef = db.collection("Users").document(emailFromLogin);
+
         getFriends();
+
+        // after passing this array list to our adapter
+        // class we are setting our adapter to our list view.
+        friendslistView.setAdapter(adapter);
     }
 
 
@@ -70,7 +75,6 @@ public class FriendsListActivity extends AppCompatActivity {
                         if (!queryDocumentSnapshots.isEmpty()) {
 
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                            //we are clearing the STATIC list
 
                             for (DocumentSnapshot d : list) {
                                 // after getting this list we are passing
@@ -83,8 +87,17 @@ public class FriendsListActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     DocumentSnapshot documentSnapshot = task.getResult();
-                                                    User user = new User(documentSnapshot.get("email").toString(), documentSnapshot.get("username").toString());
-                                                    if (!users.contains(user)) users.add(user);
+                                                    User user = new User(documentSnapshot.get("username").toString(),documentSnapshot.get("email").toString());
+                                                    boolean found = false;
+                                                    for (User u : users) {
+                                                        if (u.getEmail().equals(user.getEmail())){
+                                                            found = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (!found) {
+                                                        users.add(user);
+                                                    }
                                                 }
                                             }
                                         });
@@ -93,16 +106,18 @@ public class FriendsListActivity extends AppCompatActivity {
                     }
                 });
         // after that we are passing our array list to our adapter class.
-        UserArrayAdapter adapter = new UserArrayAdapter(FriendsListActivity.this, users);
-        // after passing this array list to our adapter
-        // class we are setting our adapter to our list view.
-        friendslistView.setAdapter(adapter);
-    }
+        adapter = new UserArrayAdapter(FriendsListActivity.this, users);
+
+        }
 
     private void logout() {
         firebaseAuth.signOut();
+        //we are clearing the STATIC list
+        users.clear();
         finish();
     }
+
+
 
 }
 
