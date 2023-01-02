@@ -42,13 +42,12 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/layoutToolBar"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="-4dp"
         android:layout_marginTop="1dp"
-        android:layout_marginBottom="694dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutToolBar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/batman_dark_blue"/>
     />
     <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
 <!--        android:id="@+id/bottom_navigation"-->

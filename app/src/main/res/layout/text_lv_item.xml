@@ -5,17 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+
     android:padding="2dp"
-    app:cardElevation="3dp">
+    app:cardElevation="3dp"
+    android:backgroundTint="@color/batman_dark_blue"
+    >
 
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+
+        >
 
         <!--Text view for displaying our text -->
         <TextView
-            android:id="@+id/idTVusername"
+            android:id="@+id/idTVemail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -23,8 +29,9 @@
             android:layout_marginBottom="20dp"
             android:padding="3dp"
             android:text="Category Text"
+            android:background="#305d60"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"/>
 
     </RelativeLayout>

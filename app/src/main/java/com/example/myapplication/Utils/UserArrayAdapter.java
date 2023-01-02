@@ -1,6 +1,7 @@
 package com.example.myapplication.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -10,18 +11,19 @@ import androidx.annotation.Nullable;
 
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.Entities.User;
+import com.example.myapplication.ProfilePageActivity;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
 public class UserArrayAdapter extends ArrayAdapter<User> {
-
+    private Context c;
     // constructor for our list view adapter.
     public UserArrayAdapter(@NonNull Context context, ArrayList<User> usersArrayList) {
         super(context, 0, usersArrayList);
+        this.c = context;
     }
 
     @NonNull
@@ -40,7 +42,7 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
         User user = getItem(position);
 
         // initializing our UI components of list view item.
-        TextView emailTV = listitemView.findViewById(R.id.idTVusername);
+        TextView emailTV = listitemView.findViewById(R.id.idTVemail);
 
         // after initializing our items we are
         // setting data to our view.
@@ -49,13 +51,10 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
 
         // below line is use to add item click listener
         // for our item of list view.
-        listitemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // on the item click on our list view.
-                // we are displaying a toast message.
-                Toast.makeText(getContext(), "Item clicked is : " + user.getEmail(), Toast.LENGTH_SHORT).show();
-            }
+        listitemView.setOnClickListener(view -> {
+            Intent profilePageIntent = new Intent(c, ProfilePageActivity.class);
+            profilePageIntent.putExtra("username", user.getUsername());
+            c.startActivity(profilePageIntent);
         });
         return listitemView;
     }
