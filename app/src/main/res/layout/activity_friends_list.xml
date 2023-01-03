@@ -29,7 +29,7 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/person_outline"
             app:tint="@color/text_purple">
-            >
+
 
         </ImageView>
 
@@ -58,26 +58,29 @@
 
     <ListView
         android:id="@+id/friendsListView"
-        android:layout_width="wrap_content"
-        android:layout_height="736dp"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
         android:layout_below="@+id/layoutToolBar"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="-4dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="1dp"
         android:background="@color/batman_dark_blue"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@id/layoutToolBar"
         app:layout_constraintVertical_bias="0.0" />
-    />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <!--        app:layout_constraintBottom_toTopOf="@id/addFriend"
+-->
+    <LinearLayout
+        app:layout_constraintBottom_toTopOf="@+id/layoutToolBar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:menu="@menu/bottom_navbar_items"
-        android:background="@color/batman_dark_blue"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintTop_toBottomOf="@id/friendsListView"
-        />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/addFriend"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginBottom="-3dp"
+            android:background="@color/batman_dark_blue"
+            app:menu="@menu/bottom_navigation_menu"/>
+    </LinearLayout>
 </RelativeLayout>
