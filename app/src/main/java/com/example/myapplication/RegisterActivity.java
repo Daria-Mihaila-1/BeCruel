@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog.setMessage("wait");
         progressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(email,password).
+
                 addOnCompleteListener(this, task -> {
                     progressDialog.dismiss();
                     if(task.isSuccessful()){
@@ -106,6 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(RegisterActivity.this,"register failed",Toast.LENGTH_SHORT).show();
+
                     }
                 });
     }
