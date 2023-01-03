@@ -32,7 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null && getIntent() == null) {
+            System.out.println("sunt si logat");
             finish();
             //todo redirect to profile or some shit like that
             Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );

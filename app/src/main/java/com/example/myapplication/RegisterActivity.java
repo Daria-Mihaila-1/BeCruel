@@ -103,7 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 .addOnFailureListener(e -> System.out.println("Failed to add user"));
 
                         Toast.makeText(RegisterActivity.this,"Reg Success",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                        Intent loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
+                        loginIntent.putExtra("register", "got registered");
+                        startActivity(loginIntent);
+                        finish();
                     }
                     else{
                         Toast.makeText(RegisterActivity.this,"register failed",Toast.LENGTH_SHORT).show();
