@@ -6,7 +6,6 @@
         android:icon="@drawable/person_outline"
         android:title = "Profile"
 
-
         />
 
 </menu>
