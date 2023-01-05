@@ -57,13 +57,6 @@ public class FriendsListActivity extends AppCompatActivity {
                 logout();
             }});
 
-        profileIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileIntent  = new Intent(getApplicationContext(), ProfilePageActivity.class);
-                profileIntent.putExtra("email", emailFromLogin);
-                startActivity(profileIntent);
-            }});
 
 
 
@@ -71,9 +64,17 @@ public class FriendsListActivity extends AppCompatActivity {
 
         getFriends();
 
-        // after passing this array list to our adapter
-        // class we are setting our adapter to our list view.
-        friendslistView.setAdapter(adapter);
+        profileIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent  = new Intent(getApplicationContext(), ProfilePageActivity.class);
+                profileIntent.putExtra("email", emailFromLogin);
+                System.out.println(users.size());
+                profileIntent.putExtra("friendsCount", users.size());
+                startActivity(profileIntent);
+            }});
+
+
     }
 
 
@@ -116,11 +117,15 @@ public class FriendsListActivity extends AppCompatActivity {
                                             }
                                         });
                             }
+                            // after that we are passing our array list to our adapter class.
+                            adapter = new UserArrayAdapter(FriendsListActivity.this, users);
+                            // after passing this array list to our adapter
+                            // class we are setting our adapter to our list view.
+                            friendslistView.setAdapter(adapter);
                         }
                     }
                 });
-        // after that we are passing our array list to our adapter class.
-        adapter = new UserArrayAdapter(FriendsListActivity.this, users);
+
 
         }
 

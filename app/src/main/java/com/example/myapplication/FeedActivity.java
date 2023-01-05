@@ -66,18 +66,11 @@ public class FeedActivity extends AppCompatActivity {
         post_recyclerView = findViewById(R.id.post_recyclerView);
 
         posts = new ArrayList<>();
-        int[] reactList = {1, 2,3};
-        posts.add(new Post("Dan", R.drawable.batman, 0, 0,
-            new Timestamp(2022, 10, 30, 22, 57, 30, 1),reactList));
 
-        posts.add(new Post("Hannah", R.drawable.batman, 0, 0,
-                        new Timestamp(2016, 2, 30, 22, 57, 30, 1),reactList));
-
-        PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(posts);
+        PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(posts, this);
 
         post_recyclerView.setAdapter(postRecyclerAdapter);
         post_recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     private void logout() {
