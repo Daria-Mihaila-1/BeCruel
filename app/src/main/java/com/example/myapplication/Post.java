@@ -1,33 +1,34 @@
 package com.example.myapplication;
 
+import com.example.myapplication.Entities.User;
+import com.google.firebase.firestore.GeoPoint;
+
+import java.text.DateFormat;
+import java.util.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Post {
-    private String username;
+
     private int postImage;
-    private int location_latitude;
-    private int location_longitude;
-    private Timestamp timestamp;
-    private int[] react;
+    private GeoPoint location;
+    private Date timestamp;
+    private String crimeDescription;
 
-    public Post(String username, int postImage, int location_latitude, int location_longitude, Timestamp timestamp, int[] react) {
-        this.username = username;
+
+    public Post(int postImage, GeoPoint location, Date timestamp, String crimeDescription) {
+
         this.postImage = postImage;
-        this.location_latitude = location_latitude;
-        this.location_longitude = location_longitude;
+        this.location = location;
         this.timestamp = timestamp;
-        this.react = react;
+        this.crimeDescription = crimeDescription;
     }
+    public Post(GeoPoint location, Date timestamp, String crimeDescription) {
 
-    public String getUsername() {
-        return username;
+        this.location = location;
+        this.timestamp = timestamp;
+        this.crimeDescription = crimeDescription;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public int getPostImage() {
         return postImage;
     }
@@ -36,35 +37,37 @@ public class Post {
         this.postImage = postImage;
     }
 
-    public int getLocation_latitude() {
-        return location_latitude;
+    public double getLocation_latitude() {
+        return location.getLatitude();
     }
 
-    public void setLocation_latitude(int location_latitude) {
-        this.location_latitude = location_latitude;
-    }
 
-    public int getLocation_longitude() {
-        return location_longitude;
-    }
-
-    public void setLocation_longitude(int location_longitude) {
-        this.location_longitude = location_longitude;
+    public double getLocation_longitude() {
+        return location.getLongitude();
     }
 
     public String getTimestamp() {
-        return timestamp.toString();
+        return DateFormat.getTimeInstance(DateFormat.SHORT).format(timestamp);
     }
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
-    public int[] getReact() {
-        return react;
+    public GeoPoint getLocation() {
+        return this.location;
     }
 
-    public void setReact(int[] react) {
-        this.react = react;
+    public void setLocation(GeoPoint location) {
+        this.location = location;
     }
+
+    public String getCrimeDescription() {
+        return crimeDescription;
+    }
+
+    public void setCrimeDescription(String crimeDescription) {
+        this.crimeDescription = crimeDescription;
+    }
+
 }
