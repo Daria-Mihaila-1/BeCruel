@@ -11,7 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,9 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (firebaseAuth.getCurrentUser() != null && getIntent() == null) {
-            System.out.println("sunt si logat");
             finish();
-            //todo redirect to profile or some shit like that
             Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
             friendsListIntent.putExtra("email", firebaseAuth.getCurrentUser().getEmail());
             startActivity(friendsListIntent);
@@ -97,13 +97,17 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
-                        System.out.println("can't get in");
-                        System.out.println(email +  " " + password);
+                        //System.out.println("can't get in");
+                        //System.out.println(email +  " " + password);
                         if(task.isSuccessful()){
                             pd.dismiss();
                             finish();
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("email", email);
+                            myEdit.commit();
                             Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
-                            friendsListIntent.putExtra("email", email);
                             startActivity(friendsListIntent);
                         }
                         else {

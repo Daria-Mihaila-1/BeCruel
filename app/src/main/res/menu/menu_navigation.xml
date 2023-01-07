@@ -1,21 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/seeFriends"
+        android:id="@+id/home"
+        android:title="Home"
         android:enabled="true"
-        android:title="Friends"
-        android:icon="@drawable/ic_baseline_add_circle_outline_24"/>
-
+        android:icon="@drawable/home"/>
     <item
         android:id="@+id/addPost"
-        android:enabled="true"
         android:title="Add Post"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"/>
 
-
     <item
         android:id="@+id/addFriend"
-        android:enabled="true"
         android:title="Add Friend"
-        android:icon="@drawable/ic_baseline_add_circle_outline_24"/>
+        android:icon="@drawable/ic_baseline_add_reaction_24"/>
+
 </menu>
