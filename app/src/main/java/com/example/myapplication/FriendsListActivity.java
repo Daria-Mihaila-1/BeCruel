@@ -35,7 +35,7 @@ public class FriendsListActivity extends AppCompatActivity {
 
     private DocumentReference docRef ;
     private static ArrayList<User> users = new ArrayList<>();
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private UserArrayAdapter adapter;
 
 

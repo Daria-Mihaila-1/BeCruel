@@ -1,22 +1,20 @@
 package com.example.myapplication;
 
-import com.example.myapplication.Entities.User;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Post {
 
-    private int postImage;
+    private byte[] postImage;
     private GeoPoint location;
     private Date timestamp;
     private String crimeDescription;
 
 
-    public Post(int postImage, GeoPoint location, Date timestamp, String crimeDescription) {
+    public Post(byte[] postImage, GeoPoint location, Date timestamp, String crimeDescription) {
 
         this.postImage = postImage;
         this.location = location;
@@ -29,11 +27,11 @@ public class Post {
         this.timestamp = timestamp;
         this.crimeDescription = crimeDescription;
     }
-    public int getPostImage() {
+    public byte[] getPostImage() {
         return postImage;
     }
 
-    public void setPostImage(int postImage) {
+    public void setPostImage(byte[] postImage) {
         this.postImage = postImage;
     }
 

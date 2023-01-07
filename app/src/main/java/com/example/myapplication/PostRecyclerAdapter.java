@@ -1,12 +1,13 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,15 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.Inflater;
 
 public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder> {
-    private Context c;
-    private ArrayList<Post> posts;
+    private final Context c;
+    private final ArrayList<Post> posts;
     public PostRecyclerAdapter(ArrayList<Post> posts, Context context) {
         this.posts = posts;
         this.c = context;
@@ -58,8 +57,14 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
-        System.out.println(post.getPostImage());
-        if (post.getPostImage() != 0) holder.postImage.setImageResource(post.getPostImage());
+
+        if (post.getPostImage() !=null) {
+            Bitmap bitmap= BitmapFactory.decodeByteArray(post.getPostImage(),0,post.getPostImage().length);
+            // set bitmap on imageView
+            holder.postImage.setImageBitmap(bitmap);
+
+
+        }
 
         holder.timeStamp.setText(post.getTimestamp());
         holder.crimeDescription.setText(post.getCrimeDescription());
@@ -67,15 +72,15 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
 
         GeoPoint postLocation = post.getLocation();
         Geocoder geocoder = new Geocoder(this.c, Locale.getDefault());
-        List<Address> addresses = null;
         try {
 
-            addresses = geocoder.getFromLocation(postLocation.getLatitude(), postLocation.getLongitude(), 1);
+            List<Address> addresses = geocoder.getFromLocation(postLocation.getLatitude(), postLocation.getLongitude(), 1);
             String cityName = addresses.get(0).getAddressLine(0);
             holder.location.setText(cityName);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
     @Override
