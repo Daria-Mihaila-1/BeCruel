@@ -108,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
                             myEdit.putString("email", email);
                             myEdit.commit();
                             Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
-                            friendsListIntent.putExtra("email", email);
                             startActivity(friendsListIntent);
                         }
                         else {
