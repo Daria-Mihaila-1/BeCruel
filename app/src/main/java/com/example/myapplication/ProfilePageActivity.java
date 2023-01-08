@@ -1,23 +1,19 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.Entities.User;
-import com.example.myapplication.Utils.UserArrayAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.myapplication.Entities.Post;
+import com.example.myapplication.Utils.PostRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -27,12 +23,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ProfilePageActivity extends AppCompatActivity {
 
@@ -41,6 +34,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     private TextView friendsCountTV;
     private TextView postCountTV;
     private ImageView logoutIV;
+
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DocumentReference docRef;
@@ -103,9 +97,10 @@ public class ProfilePageActivity extends AppCompatActivity {
                                 Timestamp timestamp = (Timestamp) d.get("timestamp");
                                 Date myTime = new Date(timestamp.getSeconds()*1000);
                                 String crimeDescription = (String) d.get("crime");
+                                String base64Encoded = (String) d.get("imgByteArray");
+                                byte[] file = Base64.decode(base64Encoded, Base64.DEFAULT);
 
-                                Post newPost = new Post(location, myTime, crimeDescription);
-                                System.out.println("adaugam ceva boss");
+                                Post newPost = new Post(file,location, myTime, crimeDescription);
                                 posts.add(newPost);
                             }
 

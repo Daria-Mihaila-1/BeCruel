@@ -33,6 +33,7 @@
                 android:value="" />
         </activity>
         <activity
+
             android:name=".AddFriendActivity"
             android:exported="false">
             <meta-data
@@ -42,14 +43,6 @@
         <activity
             android:name=".AddPostActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".FeedActivity"
-            android:exported="false"
-            android:parentActivityName=".LoginActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
