@@ -10,8 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Entities.Post;
+
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder> {
 
@@ -52,8 +53,8 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
 
-        holder.username.setText(post.getUsername());
-        holder.postImage.setImageResource(post.getPostImage());
+        //holder.username.setText(post.getUsername());
+        //holder.postImage.setImageResource(post.getPostImage());
         holder.timeStamp.setText(post.getTimestamp());
 
     }

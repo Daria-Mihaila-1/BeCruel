@@ -1,21 +1,16 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.android.material.navigation.NavigationView;
+import com.example.myapplication.Entities.Post;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class FeedActivity extends AppCompatActivity {
@@ -67,11 +62,6 @@ public class FeedActivity extends AppCompatActivity {
 
         posts = new ArrayList<>();
         int[] reactList = {1, 2,3};
-        posts.add(new Post("Dan", R.drawable.batman, 0, 0,
-            new Timestamp(2022, 10, 30, 22, 57, 30, 1),reactList));
-
-        posts.add(new Post("Hannah", R.drawable.batman, 0, 0,
-                        new Timestamp(2016, 2, 30, 22, 57, 30, 1),reactList));
 
         PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(posts);
 
