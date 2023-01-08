@@ -1,6 +1,8 @@
 package com.example.myapplication.Entities;
 
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 
@@ -22,7 +24,8 @@ public class Post {
     private GeoPoint location;
     private Date timestamp;
     private String crimeDescription;
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference docRef;
     private Timestamp firebaseTimestamp;
 
 
@@ -33,6 +36,10 @@ public class Post {
         this.firebaseTimestamp = timestamp;
         this.crimeDescription = crimeDescription;
 
+        if (this.location.getLatitude() == 0 || this.location.getLongitude() == 0) {
+            this.location = new GeoPoint(50.12334443014537, 8.704370043907613);
+        }
+
     }
 
 
@@ -42,12 +49,18 @@ public class Post {
         this.location = location;
         this.timestamp = timestamp;
         this.crimeDescription = crimeDescription;
+        if (this.location.getLatitude() == 0 || this.location.getLongitude() == 0) {
+            this.location = new GeoPoint(50.12334443014537, 8.704370043907613);
+        }
     }
     public Post(GeoPoint location, Date timestamp, String crimeDescription) {
 
         this.location = location;
         this.timestamp = timestamp;
         this.crimeDescription = crimeDescription;
+        if (this.location.getLatitude() == 0 || this.location.getLongitude() == 0) {
+            this.location = new GeoPoint(50.12334443014537, 8.704370043907613);
+        }
     }
     public byte[] getPostImage() {
         return postImage;
@@ -100,7 +113,8 @@ public class Post {
         post.put("imgByteArray", base64String);
         post.put("location", getLocation());
         post.put("timestamp", getFirebaseTimestamp());
-        post.put("user", "Users/" + user);
+        docRef  = db.collection("Users").document("Users/" + user);
+        post.put("user", docRef);
 
         return (HashMap<String, Object>) post;
 
