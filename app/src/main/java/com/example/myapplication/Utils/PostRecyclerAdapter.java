@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Entities.Post;
+import com.example.myapplication.R;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.IOException;
