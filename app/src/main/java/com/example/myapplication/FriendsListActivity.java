@@ -15,7 +15,6 @@ import android.widget.ListView;
 
 import com.example.myapplication.Entities.User;
 import com.example.myapplication.Utils.UserArrayAdapter;
-import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -37,8 +36,6 @@ public class FriendsListActivity extends AppCompatActivity {
     private ImageView logoutIV;
     private ImageView profileIV;
     private ListView friendslistView;
-    private ActivityMainBinding binding;
-
     private DocumentReference docRef ;
     private static ArrayList<User> users = new ArrayList<>();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -63,18 +60,21 @@ public class FriendsListActivity extends AppCompatActivity {
                 logout();
             }});
 
+        docRef = db.collection("Users").document(emailFromLogin);
+
+        getFriends();
+
+
         profileIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent profileIntent  = new Intent(getApplicationContext(), ProfilePageActivity.class);
+                profileIntent.putExtra("email", emailFromLogin);
+                System.out.println(users.size());
+                profileIntent.putExtra("friendsCount", users.size());
                 startActivity(profileIntent);
             }});
 
-
-
-        docRef = db.collection("Users").document(emailFromLogin);
-
-        getFriends();
 
         // after passing this array list to our adapter
         // class we are setting our adapter to our list view.
@@ -150,11 +150,15 @@ public class FriendsListActivity extends AppCompatActivity {
                                             }
                                         });
                             }
+                            // after that we are passing our array list to our adapter class.
+                            adapter = new UserArrayAdapter(FriendsListActivity.this, users);
+                            // after passing this array list to our adapter
+                            // class we are setting our adapter to our list view.
+                            friendslistView.setAdapter(adapter);
                         }
                     }
                 });
-        // after that we are passing our array list to our adapter class.
-        adapter = new UserArrayAdapter(FriendsListActivity.this, users);
+
 
         }
 

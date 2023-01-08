@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(loginIntent);
         });
 
+        yesBtn.setOnClickListener(view -> {
+            finishAndRemoveTask();
+        });
+
     }
     }
 

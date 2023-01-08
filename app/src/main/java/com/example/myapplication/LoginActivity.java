@@ -35,9 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (firebaseAuth.getCurrentUser() != null && getIntent() == null) {
-            System.out.println("sunt si logat");
             finish();
-            //todo redirect to profile or some shit like that
             Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
             friendsListIntent.putExtra("email", firebaseAuth.getCurrentUser().getEmail());
             startActivity(friendsListIntent);
@@ -110,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
                             myEdit.putString("email", email);
                             myEdit.commit();
                             Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
-                            friendsListIntent.putExtra("email", email);
                             startActivity(friendsListIntent);
                         }
                         else {
