@@ -1,10 +1,13 @@
 package com.example.myapplication.Utils;
 
+<<<<<<< HEAD:app/src/main/java/com/example/myapplication/Utils/PostRecyclerAdapter.java
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
+=======
+>>>>>>> master:app/src/main/java/com/example/myapplication/PostRecyclerAdapter.java
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Entities.Post;
+<<<<<<< HEAD:app/src/main/java/com/example/myapplication/Utils/PostRecyclerAdapter.java
 import com.example.myapplication.R;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -27,23 +31,34 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     private final Context c;
     private final ArrayList<Post> posts;
     public PostRecyclerAdapter(ArrayList<Post> posts, Context context) {
+=======
+
+import java.util.ArrayList;
+
+public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder> {
+
+    private ArrayList<Post> posts;
+    public PostRecyclerAdapter(ArrayList<Post> posts) {
+>>>>>>> master:app/src/main/java/com/example/myapplication/PostRecyclerAdapter.java
         this.posts = posts;
-        this.c = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView postImage;
-
+        TextView username;
         TextView timeStamp;
-        TextView location;
-        TextView crimeDescription;
+        ImageButton commentBtn;
+        ImageButton reactBtn;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            location = itemView.findViewById(R.id.locationIV);
+
             postImage = itemView.findViewById(R.id.ivPost);
-            timeStamp = itemView.findViewById(R.id.timeStampIV);
-            crimeDescription = itemView.findViewById(R.id.crimeDescriptionTV);
+            username = itemView.findViewById(R.id.ivUsername);
+            timeStamp = itemView.findViewById(R.id.ivTimeStamp);
+            commentBtn = itemView.findViewById(R.id.ivComment);
+            reactBtn = itemView.findViewById(R.id.ivReact);
 
         }
     }
@@ -59,6 +74,7 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
+<<<<<<< HEAD:app/src/main/java/com/example/myapplication/Utils/PostRecyclerAdapter.java
 
         if (post.getPostImage() !=null) {
             Bitmap bitmap= BitmapFactory.decodeByteArray(post.getPostImage(),0,post.getPostImage().length);
@@ -67,8 +83,13 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
 
 
         }
+=======
+>>>>>>> master:app/src/main/java/com/example/myapplication/PostRecyclerAdapter.java
 
+        //holder.username.setText(post.getUsername());
+        //holder.postImage.setImageResource(post.getPostImage());
         holder.timeStamp.setText(post.getTimestamp());
+<<<<<<< HEAD:app/src/main/java/com/example/myapplication/Utils/PostRecyclerAdapter.java
         holder.crimeDescription.setText(post.getCrimeDescription());
         System.out.println(post.getCrimeDescription());
 
@@ -82,9 +103,12 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
         } catch (IOException e) {
             e.printStackTrace();
         }
+=======
+>>>>>>> master:app/src/main/java/com/example/myapplication/PostRecyclerAdapter.java
 
 
     }
+
     @Override
     public int getItemCount() {
         return posts.size();

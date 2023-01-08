@@ -4,17 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.myapplication.Entities.User;
-
 import com.example.myapplication.Utils.UserArrayAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,7 +36,6 @@ public class FriendsListActivity extends AppCompatActivity {
     private ImageView logoutIV;
     private ImageView profileIV;
     private ListView friendslistView;
-
     private DocumentReference docRef ;
     private static ArrayList<User> users = new ArrayList<>();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -44,8 +47,8 @@ public class FriendsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
 
-        Intent intentFromLogin = getIntent();
-        String emailFromLogin =intentFromLogin.getStringExtra("email");
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String emailFromLogin = sh.getString("email", "");
 
         friendslistView = findViewById(R.id.friendsListView);
         logoutIV = findViewById(R.id.logoutIV);
@@ -57,12 +60,10 @@ public class FriendsListActivity extends AppCompatActivity {
                 logout();
             }});
 
-
-
-
         docRef = db.collection("Users").document(emailFromLogin);
 
         getFriends();
+
 
         profileIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,38 @@ public class FriendsListActivity extends AppCompatActivity {
                 startActivity(profileIntent);
             }});
 
+
+        // after passing this array list to our adapter
+        // class we are setting our adapter to our list view.
+        friendslistView.setAdapter(adapter);
+
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId())
+                {
+                    case R.id.addFriend:
+                        startActivity(new Intent(getApplicationContext(), AddFriendActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        return true;
+                    case R.id.addPost:
+                        startActivity(new Intent(getApplicationContext(), AddPostActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -132,12 +165,10 @@ public class FriendsListActivity extends AppCompatActivity {
     private void logout() {
         firebaseAuth.signOut();
         //we are clearing the STATIC list
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        sh.edit().remove("email").commit();
         users.clear();
         finish();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
-
-
-
 }
-
-

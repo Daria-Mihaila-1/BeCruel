@@ -69,7 +69,11 @@ public class ProfilePageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 goBack();
             }});
+        PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(posts, ProfilePageActivity.this);
 
+        post_recyclerView.setAdapter(postRecyclerAdapter);
+        post_recyclerView.setLayoutManager(new LinearLayoutManager(ProfilePageActivity.this));
+        postCountTV.setText(String.valueOf(posts.size()));
     }
 
     private void getPosts() {
