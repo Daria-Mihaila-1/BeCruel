@@ -67,7 +67,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         logoutIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goBack();
+                finish();
             }});
         PostRecyclerAdapter postRecyclerAdapter = new PostRecyclerAdapter(posts, ProfilePageActivity.this);
 
@@ -111,9 +111,6 @@ public class ProfilePageActivity extends AppCompatActivity {
                             post_recyclerView.setLayoutManager(new LinearLayoutManager(ProfilePageActivity.this));
                             postCountTV.setText(String.valueOf(posts.size()));
                         }
-                        else {
-                            System.out.println("no posts available");
-                        }
                     }
                 });
     }
@@ -135,11 +132,6 @@ public class ProfilePageActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    private void goBack() {
-        //we are clearing the STATIC list
-        finish();
     }
 
 }
