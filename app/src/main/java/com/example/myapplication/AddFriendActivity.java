@@ -151,7 +151,7 @@ public class AddFriendActivity extends AppCompatActivity {
                 User clickedUser = (User) friendlistView.getItemAtPosition(i);
                 final CollectionReference dbFriends = db.collection("Friends");
                 DocumentReference friendReferece = db.collection("Users").document(clickedUser.getEmail());
-                if (users.contains(clickedUser)) {
+                if (currentFriends.contains(clickedUser)) {
 
                     Toast.makeText(getApplicationContext(), "You already follow " + clickedUser.getUsername(), Toast.LENGTH_LONG).show();
                 } else {
