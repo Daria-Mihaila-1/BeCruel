@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -32,7 +31,6 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.Timestamp;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.UUID;
 
 public class AddPostActivity extends AppCompatActivity {
@@ -49,7 +47,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     ImageView IVPreviewImage;
 
-    int SELECT_PICTURE = 200;
+    int TAKE_PICTURE = 200;
 
     Bitmap image_as_bitmap = null;
 
@@ -158,33 +156,25 @@ public class AddPostActivity extends AppCompatActivity {
 
     void imageChooser() {
 
-        // create an instance of the
-        // intent of the type image
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera_intent, 200);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
 
             // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
+            // TAKE_PICTURE constant
+            if (requestCode == TAKE_PICTURE) {
+                //transform Intent data into bitmap
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                try {
                     // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
-                    try {
-                        image_as_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                    } catch (IOException e) {
+                        IVPreviewImage.setImageBitmap(photo);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -193,4 +183,3 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
 
-}
