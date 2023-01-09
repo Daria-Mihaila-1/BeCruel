@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Entities.Friend;
 import com.example.myapplication.Entities.User;
 import com.example.myapplication.Utils.UserArrayAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -114,7 +116,7 @@ public class AddFriendActivity extends AppCompatActivity {
 
                                                 boolean found = false;
                                                 if (snapshot != null) {
-                                                    User user = new User(snapshot.get("username").toString(), snapshot.get("username").toString());
+                                                    User user = new User(snapshot.get("username").toString(), snapshot.get("email").toString());
 
                                                     for (User currentUser : users) {
                                                         if (Objects.equals(user.getUsername(), currentUser.getUsername())) {
@@ -140,36 +142,40 @@ public class AddFriendActivity extends AppCompatActivity {
     }
 
     public void addFirend() {
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String emailFromLogin = sh.getString("email", "");
         ArrayList<User> currentFriends = getFriends();
         friendlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 User clickedUser = (User) friendlistView.getItemAtPosition(i);
-                final CollectionReference dbFriends = db.collection("Users");
-                dbFriends.whereEqualTo("username", clickedUser.getUsername())
-                        .get()
-                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                DocumentSnapshot snapshot = list.get(0);
-                                User userToAdd = new User(snapshot.get("username").toString(), snapshot.get("email").toString());
-                                if(currentFriends.contains(userToAdd)) {
-                                    Toast.makeText(getApplicationContext() , "You already follow " + userToAdd.getUsername() , Toast.LENGTH_LONG).show();
-                                }
-                                else{
-                                    dbFriends.add(userToAdd);
-                                    Toast.makeText(getApplicationContext() , "Now you follow " + userToAdd.getUsername() , Toast.LENGTH_LONG).show();
-                                }
+                final CollectionReference dbFriends = db.collection("Friends");
+                DocumentReference friendReferece = db.collection("Users").document(clickedUser.getEmail());
+                if (users.contains(clickedUser)) {
 
-                            }
-                        });
+                    Toast.makeText(getApplicationContext(), "You already follow " + clickedUser.getUsername(), Toast.LENGTH_LONG).show();
+                } else {
+                    db.collection("Friends").add(new Friend(friendReferece,documentReference))
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(getApplicationContext(), "Now you follow " + clickedUser.getUsername(), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(),FriendsListActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+
+
+                }
             }
         });
     }
+
+
+
     protected ArrayList<User> getFriends() {
         final CollectionReference dbFriends = db.collection("Friends");
-
+        ArrayList<User> myFriends = new ArrayList<>();
         dbFriends
                 .whereEqualTo("owner", documentReference)
                 .get()
@@ -191,10 +197,10 @@ public class AddFriendActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     DocumentSnapshot documentSnapshot = task.getResult();
-                                                    User user = new User(documentSnapshot.get("username").toString(),documentSnapshot.get("email").toString());
+                                                    User user = new User(documentSnapshot.get("username").toString(), documentSnapshot.get("email").toString());
                                                     boolean found = false;
                                                     for (User u : users) {
-                                                        if (u.getEmail().equals(user.getEmail())){
+                                                        if (u.getEmail().equals(user.getEmail())) {
                                                             found = true;
                                                             break;
                                                         }
@@ -206,11 +212,9 @@ public class AddFriendActivity extends AppCompatActivity {
                                             }
                                         });
                             }
-
                         }
                     }
                 });
         return users;
-
     }
 }
