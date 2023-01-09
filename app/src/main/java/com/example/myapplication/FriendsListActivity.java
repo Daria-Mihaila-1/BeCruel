@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -154,7 +155,18 @@ public class FriendsListActivity extends AppCompatActivity {
                             adapter = new UserArrayAdapter(FriendsListActivity.this, users);
                             // after passing this array list to our adapter
                             // class we are setting our adapter to our list view.
+
+
                             friendslistView.setAdapter(adapter);
+                            friendslistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        User currentUser = (User) friendslistView.getItemAtPosition(i);
+                                        Intent profilePageIntent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+                                        profilePageIntent.putExtra("email",currentUser.getEmail());
+                                        startActivity(profilePageIntent);
+                                }
+                            });
                         }
                     }
                 });

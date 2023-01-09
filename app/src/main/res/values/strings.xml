@@ -3,4 +3,6 @@
     <string name="title">title</string>
     <string name="username">username</string>
     <string name="timestamp">timeStamp</string>
+    <string name="searchforfriends">searchForFriends</string>
+    <string name="textview">TextView</string>
 </resources>
