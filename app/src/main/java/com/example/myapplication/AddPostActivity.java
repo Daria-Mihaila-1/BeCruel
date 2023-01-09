@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,13 +20,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.example.myapplication.Entities.Post;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.Timestamp;
@@ -141,6 +147,7 @@ public class AddPostActivity extends AppCompatActivity {
             byteArray = stream.toByteArray();
         }
 
+        Log.d("myPostArray", byteArray.toString());
         Post myPost = new Post(byteArray, currentLocation, Timestamp.now(), crimeDescriptionString);
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
@@ -150,8 +157,24 @@ public class AddPostActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         db.collection("Posts").document(randomUUID.toString().replaceAll("_", ""))
                 .set(myPost.postToHashmap(emailFromLogin))
-                .addOnSuccessListener(aVoid -> Log.d("POST", "Post submitted"))
-                .addOnFailureListener(e -> Log.d("POST", "Post not submitted"));
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("POST", "Post submitted");
+                        Context context = getApplicationContext();
+                        Toast.makeText(context, "Post added succesfully!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(context,FriendsListActivity.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("POST", "Post not submitted");
+                        Context context = getApplicationContext();
+                        Toast.makeText(context, "Error upon adding post!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(context,FriendsListActivity.class));
+                    }
+                });
     }
 
     void imageChooser() {
@@ -171,6 +194,7 @@ public class AddPostActivity extends AppCompatActivity {
             if (requestCode == TAKE_PICTURE) {
                 //transform Intent data into bitmap
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
+                image_as_bitmap = photo;
                 try {
                     // update the preview image in the layout
                         IVPreviewImage.setImageBitmap(photo);
