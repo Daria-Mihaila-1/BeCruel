@@ -113,7 +113,7 @@ public class Post {
         post.put("imgByteArray", base64String);
         post.put("location", getLocation());
         post.put("timestamp", getFirebaseTimestamp());
-        docRef  = db.collection("Users").document("Users/" + user);
+        docRef  = db.collection("Users").document(user);
         post.put("user", docRef);
 
         return (HashMap<String, Object>) post;
