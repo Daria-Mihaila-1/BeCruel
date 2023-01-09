@@ -6,12 +6,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -20,19 +20,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.example.myapplication.Entities.Post;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.Timestamp;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.UUID;
 
 public class AddPostActivity extends AppCompatActivity {
@@ -49,7 +53,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     ImageView IVPreviewImage;
 
-    int SELECT_PICTURE = 200;
+    int TAKE_PICTURE = 200;
 
     Bitmap image_as_bitmap = null;
 
@@ -143,6 +147,7 @@ public class AddPostActivity extends AppCompatActivity {
             byteArray = stream.toByteArray();
         }
 
+        Log.d("myPostArray", byteArray.toString());
         Post myPost = new Post(byteArray, currentLocation, Timestamp.now(), crimeDescriptionString);
 
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
@@ -152,39 +157,48 @@ public class AddPostActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         db.collection("Posts").document(randomUUID.toString().replaceAll("_", ""))
                 .set(myPost.postToHashmap(emailFromLogin))
-                .addOnSuccessListener(aVoid -> Log.d("POST", "Post submitted"))
-                .addOnFailureListener(e -> Log.d("POST", "Post not submitted"));
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("POST", "Post submitted");
+                        Context context = getApplicationContext();
+                        Toast.makeText(context, "Post added succesfully!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(context,FriendsListActivity.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("POST", "Post not submitted");
+                        Context context = getApplicationContext();
+                        Toast.makeText(context, "Error upon adding post!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(context,FriendsListActivity.class));
+                    }
+                });
     }
 
     void imageChooser() {
 
-        // create an instance of the
-        // intent of the type image
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(camera_intent, 200);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
 
             // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
+            // TAKE_PICTURE constant
+            if (requestCode == TAKE_PICTURE) {
+                //transform Intent data into bitmap
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                image_as_bitmap = photo;
+                try {
                     // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
-                    try {
-                        image_as_bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
-                    } catch (IOException e) {
+                        IVPreviewImage.setImageBitmap(photo);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -193,4 +207,3 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
 
-}

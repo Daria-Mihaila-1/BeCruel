@@ -1,4 +1,4 @@
-package com.example.myapplication.Entities;
+ package com.example.myapplication.Entities;
 
 
 import com.google.firebase.firestore.DocumentReference;
