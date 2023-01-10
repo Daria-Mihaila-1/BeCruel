@@ -37,7 +37,7 @@ public class Post {
         this.crimeDescription = crimeDescription;
 
         if (this.location.getLatitude() == 0 || this.location.getLongitude() == 0) {
-            this.location = new GeoPoint(50.12334443014537, 8.704370043907613);
+            this.location = new GeoPoint(46.77586202322839, 23.594111599999994);
         }
 
     }
@@ -50,7 +50,7 @@ public class Post {
         this.timestamp = timestamp;
         this.crimeDescription = crimeDescription;
         if (this.location.getLatitude() == 0 || this.location.getLongitude() == 0) {
-            this.location = new GeoPoint(50.12334443014537, 8.704370043907613);
+            this.location = new GeoPoint(46.77586202322839, 23.594111599999994);
         }
     }
     public Post(GeoPoint location, Date timestamp, String crimeDescription) {
@@ -59,7 +59,7 @@ public class Post {
         this.timestamp = timestamp;
         this.crimeDescription = crimeDescription;
         if (this.location.getLatitude() == 0 || this.location.getLongitude() == 0) {
-            this.location = new GeoPoint(50.12334443014537, 8.704370043907613);
+            this.location = new GeoPoint(46.77586202322839, 23.594111599999994);
         }
     }
     public byte[] getPostImage() {
