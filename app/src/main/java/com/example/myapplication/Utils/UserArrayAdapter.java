@@ -51,11 +51,6 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
 
         // below line is use to add item click listener
         // for our item of list view.
-        listitemView.setOnClickListener(view -> {
-            Intent profilePageIntent = new Intent(c, ProfilePageActivity.class);
-            profilePageIntent.putExtra("email", user.getEmail());
-            c.startActivity(profilePageIntent);
-        });
         return listitemView;
     }
 }
