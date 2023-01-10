@@ -3,9 +3,11 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class AddFriendActivity extends AppCompatActivity {
 
@@ -155,17 +158,30 @@ public class AddFriendActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "You already follow " + clickedUser.getUsername(), Toast.LENGTH_LONG).show();
                 } else {
-                    db.collection("Friends").add(new Friend(friendReferece,documentReference))
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    Friend friend = new Friend(friendReferece,documentReference);
+                    UUID randomUUID = UUID.randomUUID();
+                    db.collection("Friends").document(randomUUID.toString().replaceAll("_", ""))
+                            .set(friend.postToHashmap(friend.getFriend(), friend.getOwner()))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(getApplicationContext(), "Now you follow " + clickedUser.getUsername(), Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(getApplicationContext(),FriendsListActivity.class);
-                                    startActivity(intent);
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("POST", "Post submitted");
+                                    Context context = getApplicationContext();
+                                    Toast.makeText(context, "Friend added succesfully!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(context,FriendsListActivity.class));
                                 }
                             });
-
-
+                    UUID random2UUID = UUID.randomUUID();
+                    db.collection("Friends").document(random2UUID.toString().replaceAll("_", ""))
+                            .set(friend.postToHashmap(friend.getOwner(), friend.getFriend()))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("POST", "Post submitted");
+                                    Context context = getApplicationContext();
+                                    startActivity(new Intent(context,FriendsListActivity.class));
+                                }
+                            });
                 }
             }
         });

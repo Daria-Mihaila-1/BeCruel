@@ -2,6 +2,7 @@ package com.example.myapplication.Entities;
 
 import com.google.firebase.firestore.DocumentReference;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,5 +39,16 @@ public class Friend {
         friendship.put("owner",owner);
         friendship.put("friend",friend);
         return friendship;
+    }
+
+    public HashMap<String, Object> postToHashmap(DocumentReference friend, DocumentReference owner){
+        Map<String, Object> post = new HashMap<>();
+
+
+        post.put("friend", friend);
+        post.put("owner", owner);
+
+        return (HashMap<String, Object>) post;
+
     }
 }
