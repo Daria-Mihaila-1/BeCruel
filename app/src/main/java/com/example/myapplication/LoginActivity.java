@@ -11,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         if (firebaseAuth.getCurrentUser() != null && getIntent() == null) {
             finish();
-            Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
+            Intent friendsListIntent  = new Intent(getApplicationContext(), MainPageActivity.class );
             friendsListIntent.putExtra("email", firebaseAuth.getCurrentUser().getEmail());
             startActivity(friendsListIntent);
         }
@@ -107,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
                             myEdit.putString("email", email);
                             myEdit.commit();
-                            Intent friendsListIntent  = new Intent(getApplicationContext(), FriendsListActivity.class );
+                            Intent friendsListIntent  = new Intent(getApplicationContext(), MainPageActivity.class );
                             startActivity(friendsListIntent);
                         }
                         else {

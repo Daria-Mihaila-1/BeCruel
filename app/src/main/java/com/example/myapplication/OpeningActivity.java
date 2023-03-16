@@ -2,17 +2,12 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class OpeningActivity extends AppCompatActivity {
     Button yesBtn;
     Button noBtn;
     @Override
@@ -24,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(!emailFromLogin.equalsIgnoreCase("")){
-            Intent finedListIntend = new Intent(MainActivity.this, FriendsListActivity.class);
+            Intent finedListIntend = new Intent(OpeningActivity.this, MainPageActivity.class);
             startActivity(finedListIntend);
         }
 
@@ -35,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         noBtn = findViewById(R.id.buttonNo);
         noBtn.setOnClickListener(view -> {
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent loginIntent = new Intent(OpeningActivity.this, LoginActivity.class);
             startActivity(loginIntent);
         });
 

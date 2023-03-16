@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FriendsListActivity extends AppCompatActivity {
+public class MainPageActivity extends AppCompatActivity {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView logoutIV;
@@ -152,7 +150,7 @@ public class FriendsListActivity extends AppCompatActivity {
                                         });
                             }
                             // after that we are passing our array list to our adapter class.
-                            adapter = new UserArrayAdapter(FriendsListActivity.this, users);
+                            adapter = new UserArrayAdapter(MainPageActivity.this, users);
                             // after passing this array list to our adapter
                             // class we are setting our adapter to our list view.
 
@@ -181,6 +179,6 @@ public class FriendsListActivity extends AppCompatActivity {
         sh.edit().remove("email").commit();
         users.clear();
         finish();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
     }
 }

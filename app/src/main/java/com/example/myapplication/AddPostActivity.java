@@ -26,12 +26,9 @@ import android.widget.Toast;
 import com.example.myapplication.Entities.Post;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.Timestamp;
@@ -119,7 +116,7 @@ public class AddPostActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), FriendsListActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainPageActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.addPost:
@@ -163,7 +160,7 @@ public class AddPostActivity extends AppCompatActivity {
                         Log.d("POST", "Post submitted");
                         Context context = getApplicationContext();
                         Toast.makeText(context, "Post added succesfully!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(context,FriendsListActivity.class));
+                        startActivity(new Intent(context, MainPageActivity.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -172,7 +169,7 @@ public class AddPostActivity extends AppCompatActivity {
                         Log.d("POST", "Post not submitted");
                         Context context = getApplicationContext();
                         Toast.makeText(context, "Error upon adding post!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(context,FriendsListActivity.class));
+                        startActivity(new Intent(context, MainPageActivity.class));
                     }
                 });
     }
