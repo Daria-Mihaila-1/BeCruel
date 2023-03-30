@@ -19,7 +19,8 @@ public class ExampleUnitTest {
         LogInAndRegistrationDataValidator validator = new LogInAndRegistrationDataValidator();
 
         // Boundary Value Analysis (BVA)
-        //tests fot the length of the string before @ (min-1)
+        //tests for the length of the password
+        // too little characters(min-1)
         assertFalse(validator.isPasswordValid("Cosmi#2"));
 
         //ok password (nominal value)
