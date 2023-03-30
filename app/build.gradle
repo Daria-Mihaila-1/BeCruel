@@ -57,4 +57,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
+
+    //test dependencies
+    // Required -- JUnit 4 framework
+    testImplementation "junit:junit:4.13.2"
+
 }

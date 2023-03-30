@@ -72,7 +72,7 @@ public class AddFriendActivity extends AppCompatActivity {
                     case R.id.addFriend:
                         return true;
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), FriendsListActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainPageActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.addPost:
@@ -168,7 +168,7 @@ public class AddFriendActivity extends AppCompatActivity {
                                     Log.d("POST", "Post submitted");
                                     Context context = getApplicationContext();
                                     Toast.makeText(context, "Friend added succesfully!", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(context,FriendsListActivity.class));
+                                    startActivity(new Intent(context,MainPageActivity.class));
                                 }
                             });
                     UUID random2UUID = UUID.randomUUID();
@@ -179,7 +179,7 @@ public class AddFriendActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     Log.d("POST", "Post submitted");
                                     Context context = getApplicationContext();
-                                    startActivity(new Intent(context,FriendsListActivity.class));
+                                    startActivity(new Intent(context,MainPageActivity.class));
                                 }
                             });
                 }
