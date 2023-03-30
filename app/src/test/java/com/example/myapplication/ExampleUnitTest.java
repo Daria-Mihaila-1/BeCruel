@@ -30,7 +30,7 @@ public class ExampleUnitTest {
         assertTrue(validator.isPasswordValid("Cosmin#2"));
 
         // more than 20 char (more + 1)
-        assertFalse(validator.isPasswordValid("Peste20deCaractere2002#nuebndeloc"));
+        assertFalse(validator.isPasswordValid("Peste20deCaractere#nu"));
 
 
         //Equivalence Class Partitioning (ECP)
