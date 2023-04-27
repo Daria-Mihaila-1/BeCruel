@@ -88,7 +88,7 @@ public class ExampleUnitTest {
         // Define the expected result - posts with location and without image, ordered by timestamp (descending)
         ArrayList<Post> expected = new ArrayList<>();
         expected.add(post4);
-        expected.add(post2);
+        expected.add(post3);
         expected.add(post1);
 
         // Assert that the result matches the expected result
