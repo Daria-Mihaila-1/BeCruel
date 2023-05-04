@@ -7,7 +7,6 @@ import com.google.firebase.firestore.GeoPoint;
 
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.GeoPoint;
 
 import java.text.DateFormat;
 import java.util.Base64;
@@ -24,8 +23,7 @@ public class Post {
     private GeoPoint location;
     private Date timestamp;
     private String crimeDescription;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference docRef;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Timestamp firebaseTimestamp;
 
 
@@ -113,7 +111,7 @@ public class Post {
         post.put("imgByteArray", base64String);
         post.put("location", getLocation());
         post.put("timestamp", getFirebaseTimestamp());
-        docRef  = db.collection("Users").document(user);
+        DocumentReference docRef = db.collection("Users").document(user);
         post.put("user", docRef);
 
         return (HashMap<String, Object>) post;
